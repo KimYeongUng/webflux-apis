@@ -15,6 +15,7 @@ public class APIHandler {
     private final ApiService apiService;
 
     public Mono<ServerResponse> getData(ServerRequest request){
-        return ServerResponse.ok().body(Mono.just(apiService.getData(request)), JsonNode.class);
+        return ServerResponse.ok()
+                .body(request.bodyToMono(JsonNode.class).flatMap(apiService::getData),JsonNode.class);
     }
 }

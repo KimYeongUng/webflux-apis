@@ -5,8 +5,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.reactive.function.server.ServerRequest;
 import reactor.core.publisher.Mono;
+
+
+import static com.example.webfluxapis.util.CommonUtils.getMapFromRequest;
 
 @Service
 @RequiredArgsConstructor
@@ -14,9 +16,9 @@ import reactor.core.publisher.Mono;
 public class ApiService {
     private final WebClient webClient;
     private final static String TIME_URL = "worldtimeapi.org";
-    public Mono<JsonNode> getData(ServerRequest request){
-        Mono<JsonNode> jsonNodeMono = getWorldTime();
-        return jsonNodeMono;
+    public Mono<JsonNode> getData(JsonNode request){
+        getMapFromRequest(request);
+        return getWorldTime();
     }
 
     private Mono<JsonNode> getWorldTime(){
