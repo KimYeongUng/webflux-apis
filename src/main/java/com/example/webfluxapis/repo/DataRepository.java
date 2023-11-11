@@ -23,4 +23,6 @@ public interface DataRepository extends ReactiveCrudRepository<Data,Long> {
 
     @Query("select * from DATA WHERE title LIKE $1")
     Flux<Data> getDataByTitle(String title);
+
+
 }
