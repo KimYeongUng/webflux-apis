@@ -1,7 +1,9 @@
 package com.example.webfluxapis.config;
 
-import io.r2dbc.h2.H2ConnectionFactory;
+import io.r2dbc.spi.ConnectionFactories;
 import io.r2dbc.spi.ConnectionFactory;
+import lombok.NonNull;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
@@ -15,13 +17,18 @@ import org.springframework.transaction.ReactiveTransactionManager;
 @Configuration
 @EnableR2dbcAuditing
 public class R2dbcConfig extends AbstractR2dbcConfiguration {
+
+    @Value("${spring.r2dbc.url}")
+    String url;
+
     @Override
+    @NonNull
     public ConnectionFactory connectionFactory() {
-        return H2ConnectionFactory.inMemory("test");
+        return ConnectionFactories.get(url);
     }
 
     @Bean
-    public ConnectionFactoryInitializer initializer(){
+    ConnectionFactoryInitializer initializer(){
         ConnectionFactoryInitializer initializer = new ConnectionFactoryInitializer();
         initializer.setConnectionFactory(connectionFactory());
         ResourceDatabasePopulator resourceDatabasePopulator
@@ -35,4 +42,5 @@ public class R2dbcConfig extends AbstractR2dbcConfiguration {
     ReactiveTransactionManager reactiveTransactionManager(ConnectionFactory factory){
         return new R2dbcTransactionManager(factory);
     }
+
 }
