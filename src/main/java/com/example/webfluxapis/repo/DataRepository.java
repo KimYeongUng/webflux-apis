@@ -15,6 +15,9 @@ public interface DataRepository extends ReactiveCrudRepository<Data,Long> {
     @Transactional
     Mono<Data> insert(String title,String content);
 
+    @Query("select * from DATA")
+    Flux<Data> selectAll();
+
     @Query("select * from DATA where id = $1")
     Flux<Data> getDataById(Long id);
 
