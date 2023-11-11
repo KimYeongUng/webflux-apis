@@ -9,7 +9,7 @@ import java.util.Map;
 @Slf4j
 public class CommonUtils {
 
-    public static Map<?,?> getMapFromRequest(JsonNode request) {
+    public static Map getMapFromRequest(JsonNode request) {
         ObjectMapper objectMapper = new ObjectMapper();
         return objectMapper.convertValue(request,Map.class);
     }
