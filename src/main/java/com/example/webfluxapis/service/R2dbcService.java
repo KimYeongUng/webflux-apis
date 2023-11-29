@@ -17,9 +17,14 @@ public class R2dbcService {
 
     private final DataRepository repository;
     public Mono<JsonNode> getDataById(JsonNode jsonNode){
-        Map requestMap = CommonUtils.getMapFromRequest(jsonNode);
+        Map<String,Object> requestMap = CommonUtils.getMapFromRequest(jsonNode);
         Long id = (Long) requestMap.get("id");
         repository.getDataById(id);
+        return Mono.empty();
+    }
+
+    public Mono<JsonNode> makeJsonFromData(JsonNode request){
+
         return Mono.empty();
     }
 }

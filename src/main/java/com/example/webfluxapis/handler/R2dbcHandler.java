@@ -17,4 +17,9 @@ public class R2dbcHandler {
         return ServerResponse.ok().body(request.bodyToMono(JsonNode.class)
                 .flatMap(r2dbcService::getDataById),JsonNode.class);
     }
+
+    public Mono<ServerResponse> getDataFromJson(ServerRequest request){
+        return ServerResponse.ok()
+                .body(request.bodyToMono(JsonNode.class).flatMap(r2dbcService::makeJsonFromData),JsonNode.class);
+    }
 }

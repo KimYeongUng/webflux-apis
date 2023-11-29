@@ -11,9 +11,9 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 @Component
 public class ApiRouter {
     @Bean
-    public RouterFunction<ServerResponse> route(APIHandler handler){
+    public RouterFunction<ServerResponse> apiRoute(APIHandler handler){
         return RouterFunctions.route()
-                .GET("/api/getData",handler::getData)
+                .POST("/api/get-data",handler::getData)
                 .build();
     }
 }

@@ -14,6 +14,7 @@ public class R2dbcRouter {
     public RouterFunction<ServerResponse> r2dbcRoute(R2dbcHandler handler){
         return RouterFunctions.route()
                 .POST("/r2dbc/get-data-by-id",handler::getDataById)
+                .POST("/r2dbc/make-json",handler::getDataFromJson)
                 .build();
     }
 }
